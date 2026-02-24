@@ -18,4 +18,8 @@ class School extends Model
         return $this->hasMany(User::class);
     }
 
+    public function sections()
+    {
+        return $this->hasMany(Section::class);
+    }
 }
