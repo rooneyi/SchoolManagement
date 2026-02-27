@@ -1,67 +1,87 @@
 <x-layouts::auth>
     <div class="flex flex-col gap-6">
-        <x-auth-header :title="__('Create an account')" :description="__('Enter your details below to create your account')" />
+        <div class="flex flex-col gap-1 text-center">
+            <h1 class="text-2xl font-semibold tracking-tight">
+                {{ __('Créer un compte') }}
+            </h1>
+            <p class="text-sm text-zinc-500 dark:text-zinc-400">
+                {{ __('Entrez vos informations pour rejoindre l\'académie') }}
+            </p>
+        </div>
 
-        <!-- Session Status -->
-        <x-auth-session-status class="text-center" :status="session('status')" />
+        <x-auth-session-status class="text-center text-sm font-medium text-green-600" :status="session('status')" />
 
-        <form method="POST" action="{{ route('register.store') }}" class="flex flex-col gap-6">
+        <form method="POST" action="{{ route('register.store') }}" class="grid gap-5">
             @csrf
-            <!-- Name -->
+
             <flux:input
                 name="name"
-                :label="__('Name')"
+                :label="__('Nom complet')"
                 :value="old('name')"
                 type="text"
                 required
                 autofocus
                 autocomplete="name"
-                :placeholder="__('Full name')"
+                placeholder="Ex: Jean Dupont"
+                class="bg-white dark:bg-zinc-950"
             />
 
-            <!-- Email Address -->
             <flux:input
                 name="email"
-                :label="__('Email address')"
+                :label="__('Adresse email')"
                 :value="old('email')"
                 type="email"
                 required
                 autocomplete="email"
-                placeholder="email@example.com"
+                placeholder="nom@ecole.com"
+                class="bg-white dark:bg-zinc-950"
             />
 
-            <!-- Password -->
-            <flux:input
-                name="password"
-                :label="__('Password')"
-                type="password"
-                required
-                autocomplete="new-password"
-                :placeholder="__('Password')"
-                viewable
-            />
+            <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
+                <flux:input
+                    name="password"
+                    :label="__('Mot de passe')"
+                    type="password"
+                    required
+                    autocomplete="new-password"
+                    placeholder="••••••••"
+                    viewable
+                    class="bg-white dark:bg-zinc-950"
+                />
 
-            <!-- Confirm Password -->
-            <flux:input
-                name="password_confirmation"
-                :label="__('Confirm password')"
-                type="password"
-                required
-                autocomplete="new-password"
-                :placeholder="__('Confirm password')"
-                viewable
-            />
+                <flux:input
+                    name="password_confirmation"
+                    :label="__('Confirmation')"
+                    type="password"
+                    required
+                    autocomplete="new-password"
+                    placeholder="••••••••"
+                    viewable
+                    class="bg-white dark:bg-zinc-950"
+                />
+            </div>
 
-            <div class="flex items-center justify-end">
-                <flux:button type="submit" variant="primary" class="w-full" data-test="register-user-button">
-                    {{ __('Create account') }}
+            <div class="mt-2">
+                <flux:button type="submit" variant="primary" class="w-full bg-zinc-900 text-zinc-50 hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200 border-none h-10 shadow-sm" data-test="register-user-button">
+                    {{ __('Créer mon compte') }}
                 </flux:button>
             </div>
         </form>
 
-        <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-zinc-600 dark:text-zinc-400">
-            <span>{{ __('Already have an account?') }}</span>
-            <flux:link :href="route('login')" wire:navigate>{{ __('Log in') }}</flux:link>
+        <div class="relative">
+            <div class="absolute inset-0 flex items-center">
+                <span class="w-full border-t border-zinc-200 dark:border-zinc-800"></span>
+            </div>
+            <div class="relative flex justify-center text-xs uppercase">
+                <span class="bg-white px-2 text-zinc-500 dark:bg-zinc-950">Ou</span>
+            </div>
+        </div>
+
+        <div class="text-center text-sm text-zinc-600 dark:text-zinc-400">
+            {{ __('Vous avez déjà un compte ?') }}
+            <flux:link :href="route('login')" wire:navigate class="font-medium text-zinc-900 underline underline-offset-4 hover:text-zinc-700 dark:text-zinc-50 dark:hover:text-zinc-300">
+                {{ __('Se connecter') }}
+            </flux:link>
         </div>
     </div>
 </x-layouts::auth>
