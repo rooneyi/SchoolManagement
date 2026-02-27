@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SchoolWebController;
 
 Route::get('/', function () {
     return redirect()->route('dashboard');
@@ -13,9 +14,16 @@ Route::view('dashboard', 'dashboard')
 Route::view('create.student', 'create.student')
     ->middleware(['auth', 'verified'])
     ->name('create.student');
-Route::view('create.school', 'create.school')
-    ->middleware(['auth', 'verified'])
-    ->name('create.school');
+
+
+Route::middleware(['auth', 'verified'])->prefix('school')->name('schools.')->group(function () {
+    Route::get('/', [SchoolWebController::class, 'index'])->name('index');
+    Route::get('/create', [SchoolWebController::class, 'create'])->name('create');
+    Route::post('/', [SchoolWebController::class, 'store'])->name('store');
+    Route::get('/{school}/edit', [SchoolWebController::class, 'edit'])->name('edit');
+    Route::put('/{school}', [SchoolWebController::class, 'update'])->name('update');
+    Route::delete('/{school}', [SchoolWebController::class, 'destroy'])->name('destroy');
+});
 
 
 require __DIR__.'/settings.php';
