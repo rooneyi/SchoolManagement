@@ -1,4 +1,3 @@
-use App\Services\TelegramLogger;
 <?php
 
 namespace App\Http\Controllers;
@@ -8,6 +7,8 @@ use App\Http\Requests\SchoolRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Services\TelegramLogger;
+
 
 class SchoolWebController extends Controller
 {

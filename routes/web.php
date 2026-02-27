@@ -11,9 +11,13 @@ Route::get('/', function () {
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
-Route::view('create.student', 'create.student')
-    ->middleware(['auth', 'verified'])
-    ->name('create.student');
+
+use App\Models\School;
+use App\Http\Controllers\UserWebController;
+Route::middleware(['auth', 'verified'])->prefix('user')->name('users.')->group(function () {
+    Route::get('/create', [UserWebController::class, 'create'])->name('create');
+    Route::post('/', [UserWebController::class, 'store'])->name('store');
+});
 
 
 Route::middleware(['auth', 'verified'])->prefix('school')->name('schools.')->group(function () {

@@ -37,6 +37,12 @@
                 class="bg-white dark:bg-zinc-950"
             />
 
+            <flux:select name="school_id" :label="__('École')" required class="bg-white dark:bg-zinc-950">
+                @foreach($schools as $school)
+                    <flux:select.option :value="$school->id">{{ $school->name }}</flux:select.option>
+                @endforeach
+            </flux:select>
+
             <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
                 <flux:input
                     name="password"
