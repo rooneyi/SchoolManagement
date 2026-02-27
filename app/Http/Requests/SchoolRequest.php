@@ -28,4 +28,14 @@ class SchoolRequest extends FormRequest
             'phone'=>['required']
         ];
     }
+
+    public function rulesUpdate(): array
+    {
+        return [
+            'name'=> ['sometimes','string'],
+            'address'=>['sometimes','string'],
+            'email'=>['sometimes','email'],
+            'phone'=>['sometimes','string']
+        ];
+    }
 }
