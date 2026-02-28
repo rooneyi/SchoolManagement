@@ -22,9 +22,9 @@ final class ClassroomController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Classrooms recupere avec succes ',
+            'message' => 'Liste des classes récupérée avec succès.',
             'data' => ClassroomResource::collection($classroom),
-        ], status: Response::HTTP_OK);
+        ]);
     }
 
     public function store(StoreClassroomRequest $request)
@@ -39,9 +39,9 @@ final class ClassroomController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Classroom cree avec succes',
+                'message' => 'Classe créée avec succès.',
                 'data' => $school,
-            ], status: Response::HTTP_CREATED);
+            ]);
         } catch (Exception $e) {
             (new TelegramLogger)->log('Erreur création classroom: '.$e->getMessage());
 
