@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\AuthController;
 
-use App\Http\Requests\AuthRequest;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use App\Services\TelegramLogger;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpFoundation\Response;
 
 class RegisterController extends Controller
 {
@@ -29,11 +29,12 @@ class RegisterController extends Controller
         ];
         $user = User::query()->create($payload);
         $user->createToken('auth_token')->plainTextToken;
+        (new TelegramLogger)->log('Nouveau utilisateur cree '.$payload['name'].$payload['email'].$payload['school_id'].' dans le cadre de votre compte.');
 
         return response()->json([
-            'message' => 'Authentification reussie .',
+            'message' => 'Creation Utilisateur réussie .',
             'success' => true,
             'data' => $user,
-        ]);
+        ], status: Response::HTTP_CREATED);
     }
 }

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\AuthController;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthRequest;
 use App\Models\User;
 use App\Services\TelegramLogger;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
@@ -39,7 +39,7 @@ class AuthController extends Controller
         /** @var User $user */
         $user = Auth::user();
         $user->tokens()->delete();
-        ((new TelegramLogger)->log('Deconnexion de l\'utilisateur'.$user->name.'reussie avec succes'));
+        (new TelegramLogger)->log('Deconnexion de l\'utilisateur'.$user->name.'reussie avec succes');
 
         return response()->json([
             'message' => 'Deconexion reussie avec succees .',

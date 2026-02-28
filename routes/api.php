@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-use App\Http\Classrooms\ClassroomController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Schools\SchoolController;
-use App\Http\Sections\SectionController;
+use App\Http\Controllers\AuthController\AuthController;
+use App\Http\Controllers\AuthController\RegisterController;
+use App\Http\Controllers\Classrooms\ClassroomController;
+use App\Http\Controllers\Schools\SchoolController;
+use App\Http\Controllers\Sections\SectionController;
 use Illuminate\Support\Facades\Route;
-use Telegram\Bot\Laravel\Facades\Telegram;
 
 /*
 *
