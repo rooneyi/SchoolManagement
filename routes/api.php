@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Classrooms\ClassroomController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Schools\SchoolController;
 use Telegram\Bot\Laravel\Facades\Telegram;
@@ -20,4 +21,5 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
             'data' => $updates
         ], 200);
     });
+    Route::apiResource('classrooms', ClassroomController::class);
 });

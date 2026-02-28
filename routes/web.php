@@ -8,7 +8,9 @@ Route::get('/', function () {
 });
 
 
-Route::view('dashboard', 'dashboard')
+
+use App\Http\Controllers\DashboardController;
+Route::get('dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 

@@ -14,8 +14,14 @@
 <body class="bg-zinc-50 dark:bg-zinc-900">
     <div class="flex min-h-screen">
         @include('components.sidebar')
-        <main class="flex-1 flex flex-col">
-            @yield('content')
+        <main class="flex-1 flex flex-col p-8">
+            <div class="mb-8 flex items-end justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold tracking-tight">Tableau de bord</h1>
+                    <p class="text-zinc-500">Statistiques globales de l'école</p>
+                </div>
+            </div>
+            <!-- Ici, ajoute tes widgets, stats ou graphiques du dashboard uniquement -->
         </main>
     </div>
 </body>

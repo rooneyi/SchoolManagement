@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('code');
+            $table->integer('capacity')->default(30);
             $table->foreignIdFor(Section::class);
             $table->timestamps();
         });
