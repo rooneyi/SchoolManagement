@@ -24,7 +24,6 @@ class StoreSectionRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'code' => ['required', 'string', 'unique:sections,code'],
-            'school_id' => ['required', 'exists:schools,id'],
         ];
     }
 
@@ -34,7 +33,6 @@ class StoreSectionRequest extends FormRequest
             'code.required' => 'Le code de la section est requis.',
             'code.unique' => 'Ce code de section existe déjà.',
             'school_id.required' => 'L\'identifiant de l\'école est requis.',
-            'school_id.exists' => 'L\'école spécifiée n\'existe pas.',
         ];
     }
 }
