@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Year extends Model
 {
@@ -14,4 +15,8 @@ class Year extends Model
         'start_date',
         'end_date',
     ];
+    public function school(): belongsTo
+    {
+        return $this->belongsTo(School::class);
+    }
 }

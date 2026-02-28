@@ -9,7 +9,7 @@ use App\Models\Student;
 
 final class StudentController extends Controller
 {
-    public function index(): \Illuminate\Http\JsonResponse
+    public function index(): JsonResponse
     {
         $students = Student::all();
         return response()->json([
@@ -19,7 +19,7 @@ final class StudentController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function store(StudentRequest $request): \Illuminate\Http\JsonResponse
+    public function store(StudentRequest $request): JsonResponse
     {
         $student = Student::create($request->validated());
         return response()->json([
@@ -29,7 +29,7 @@ final class StudentController extends Controller
         ], Response::HTTP_CREATED);
     }
 
-    public function show(int $id): \Illuminate\Http\JsonResponse
+    public function show(int $id): JsonResponse
     {
         $student = Student::findOrFail($id);
         return response()->json([
@@ -39,7 +39,7 @@ final class StudentController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function update(StudentRequest $request, int $id): \Illuminate\Http\JsonResponse
+    public function update(StudentRequest $request, int $id): JsonResponse
     {
         $student = Student::findOrFail($id);
         $student->update($request->validated());
@@ -50,7 +50,7 @@ final class StudentController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function destroy(int $id): \Illuminate\Http\JsonResponse
+    public function destroy(int $id): JsonResponse
     {
         $student = Student::findOrFail($id);
         $student->delete();

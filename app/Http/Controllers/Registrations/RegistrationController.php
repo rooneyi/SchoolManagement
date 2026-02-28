@@ -9,7 +9,7 @@ use App\Models\Registration;
 
 final class RegistrationController extends Controller
 {
-    public function index(): \Illuminate\Http\JsonResponse
+    public function index(): JsonResponse
     {
         $registrations = Registration::all();
         return response()->json([
@@ -19,7 +19,7 @@ final class RegistrationController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function store(RegistrationRequest $request): \Illuminate\Http\JsonResponse
+    public function store(RegistrationRequest $request): JsonResponse
     {
         $registration = Registration::create($request->validated());
         return response()->json([
@@ -29,7 +29,7 @@ final class RegistrationController extends Controller
         ], Response::HTTP_CREATED);
     }
 
-    public function show(int $id): \Illuminate\Http\JsonResponse
+    public function show(int $id): JsonResponse
     {
         $registration = Registration::findOrFail($id);
         return response()->json([
@@ -39,7 +39,7 @@ final class RegistrationController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function update(RegistrationRequest $request, int $id): \Illuminate\Http\JsonResponse
+    public function update(RegistrationRequest $request, int $id): JsonResponse
     {
         $registration = Registration::findOrFail($id);
         $registration->update($request->validated());
@@ -50,7 +50,7 @@ final class RegistrationController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function destroy(int $id): \Illuminate\Http\JsonResponse
+    public function destroy(int $id): JsonResponse
     {
         $registration = Registration::findOrFail($id);
         $registration->delete();
