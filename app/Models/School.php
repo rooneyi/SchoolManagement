@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class School extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'name',
         'email',
@@ -20,7 +21,6 @@ class School extends Model
     {
         return $this->hasMany(User::class);
     }
-
 
     public function sections(): HasMany
     {

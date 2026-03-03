@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -82,13 +81,13 @@ class DatabaseSeeder extends Seeder
             // Create students
             for ($i = 1; $i <= 5; $i++) {
                 $student = Student::create([
-                    'matricule' => 'STU' . $school->id . sprintf('%03d', $i),
-                    'name' => 'Student ' . $i,
-                    'post_name' => 'Last' . $i,
-                    'email' => 'student' . $school->id . '_' . $i . '@example.com',
-                    'phone' => '+2431231111' . $i,
+                    'matricule' => 'STU'.$school->id.sprintf('%03d', $i),
+                    'name' => 'Student '.$i,
+                    'post_name' => 'Last'.$i,
+                    'email' => 'student'.$school->id.'_'.$i.'@example.com',
+                    'phone' => '+2431231111'.$i,
                     'birth_date' => '2010-01-01',
-                    'address' => 'Student Address ' . $i,
+                    'address' => 'Student Address '.$i,
                     'photo' => null,
                     'bulletin_file' => null,
                     'school_id' => $school->id,

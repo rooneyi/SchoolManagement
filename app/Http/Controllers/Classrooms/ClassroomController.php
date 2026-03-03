@@ -38,6 +38,7 @@ final class ClassroomController extends Controller
             (new TelegramLogger)->log('Nouvelle classroom créée: '.$school->name);
 
             (new TelegramLogger)->log('Classe créée avec succès: '.$school->name);
+
             return response()->json([
                 'success' => true,
                 'message' => 'Classe créée avec succès.',
@@ -45,6 +46,7 @@ final class ClassroomController extends Controller
             ], Response::HTTP_CREATED);
         } catch (Exception $e) {
             (new TelegramLogger)->log('Erreur lors de la création de la classe: '.$e->getMessage());
+
             return response()->json([
                 'success' => false,
                 'message' => 'Une erreur est survenue lors de la création de la classe.',

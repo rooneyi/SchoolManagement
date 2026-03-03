@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Student extends Model
 {
     use HasFactory;
+
     //
     protected $fillable = [
         'matricule',

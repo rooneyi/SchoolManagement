@@ -46,6 +46,4 @@ class AuthController extends Controller
             'success' => true,
         ], status: Response::HTTP_OK);
     }
-
-
 }

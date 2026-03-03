@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Guardians;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GuardianRequest;
 use App\Models\Guardian;
+use App\Services\TelegramLogger;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Services\TelegramLogger;
 
 final class GuardianController extends Controller
 {
@@ -25,7 +25,7 @@ final class GuardianController extends Controller
     public function store(GuardianRequest $request): JsonResponse
     {
         $guardian = Guardian::create($request->validated());
-        (new TelegramLogger)->log('Parent créé: ' . $guardian->id);
+        (new TelegramLogger)->log('Parent créé: '.$guardian->id);
 
         return response()->json([
             'success' => true,
@@ -49,7 +49,7 @@ final class GuardianController extends Controller
     {
         $guardian = Guardian::findOrFail($id);
         $guardian->update($request->validated());
-        (new TelegramLogger)->log('Parent mis à jour: ' . $guardian->id);
+        (new TelegramLogger)->log('Parent mis à jour: '.$guardian->id);
 
         return response()->json([
             'success' => true,
@@ -62,7 +62,7 @@ final class GuardianController extends Controller
     {
         $guardian = Guardian::findOrFail($id);
         $guardian->delete();
-        (new TelegramLogger)->log('Parent supprimé: ' . $id);
+        (new TelegramLogger)->log('Parent supprimé: '.$id);
 
         return response()->json([
             'success' => true,

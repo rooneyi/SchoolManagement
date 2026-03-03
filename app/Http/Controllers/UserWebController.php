@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\School;
-use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
 
 class UserWebController extends Controller
 {
     public function create(): View
     {
         $schools = School::all();
+
         return view('create.student', compact('schools'));
     }
 
@@ -27,6 +28,7 @@ class UserWebController extends Controller
         ]);
         $validated['password'] = Hash::make($validated['password']);
         User::create($validated);
+
         return redirect()->route('dashboard')->with('success', 'Utilisateur créé avec succès');
     }
 }

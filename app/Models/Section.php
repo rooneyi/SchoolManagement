@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Section extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'name',
         'school_id',

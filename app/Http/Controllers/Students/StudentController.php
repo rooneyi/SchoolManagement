@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentRequest;
 use App\Models\Student;
 use App\Services\TelegramLogger;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
 final class StudentController extends Controller

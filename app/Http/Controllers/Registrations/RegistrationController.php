@@ -4,16 +4,18 @@ namespace App\Http\Controllers\Registrations;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegistrationRequest;
-use Illuminate\Http\Response;
 use App\Models\Registration;
 use App\Services\TelegramLogger;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 final class RegistrationController extends Controller
 {
     public function index(): JsonResponse
     {
         $registrations = Registration::all();
+
         return response()->json([
             'success' => true,
             'message' => 'Liste des inscriptions récupérée avec succès.',
@@ -24,7 +26,8 @@ final class RegistrationController extends Controller
     public function store(RegistrationRequest $request): JsonResponse
     {
         $registration = Registration::create($request->validated());
-        (new TelegramLogger)->log('Inscription créée: ' . $registration->id);
+        (new TelegramLogger)->log('Inscription créée: '.$registration->id);
+
         return response()->json([
             'success' => true,
             'message' => 'Inscription créée avec succès.',
@@ -35,6 +38,7 @@ final class RegistrationController extends Controller
     public function show(int $id): JsonResponse
     {
         $registration = Registration::findOrFail($id);
+
         return response()->json([
             'success' => true,
             'message' => 'Inscription récupérée avec succès.',
@@ -46,7 +50,8 @@ final class RegistrationController extends Controller
     {
         $registration = Registration::findOrFail($id);
         $registration->update($request->validated());
-        (new TelegramLogger)->log('Inscription mise à jour: ' . $registration->id);
+        (new TelegramLogger)->log('Inscription mise à jour: '.$registration->id);
+
         return response()->json([
             'success' => true,
             'message' => 'Inscription mise à jour avec succès.',
@@ -58,10 +63,11 @@ final class RegistrationController extends Controller
     {
         $registration = Registration::findOrFail($id);
         $registration->delete();
-        (new TelegramLogger)->log('Inscription supprimée: ' . $id);
+        (new TelegramLogger)->log('Inscription supprimée: '.$id);
+
         return response()->json([
             'success' => true,
-            'message' => 'Inscription supprimée avec succès.'
+            'message' => 'Inscription supprimée avec succès.',
         ], Response::HTTP_OK);
     }
 
@@ -87,6 +93,7 @@ final class RegistrationController extends Controller
     public function byStudent(int $studentId): JsonResponse
     {
         $registrations = Registration::where('student_id', $studentId)->get();
+
         return response()->json([
             'success' => true,
             'message' => 'Inscriptions de l’étudiant récupérées.',

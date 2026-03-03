@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\School;
 use App\Http\Requests\SchoolRequest;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\View\View;
+use App\Models\School;
 use App\Services\TelegramLogger;
-
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class SchoolWebController extends Controller
 {
     public function index(): View
     {
         $schools = School::all();
+
         return view('schools.index', compact('schools'));
     }
 
@@ -26,7 +25,8 @@ class SchoolWebController extends Controller
     public function store(SchoolRequest $request): RedirectResponse
     {
         $school = School::create($request->validated());
-        (new TelegramLogger())->log('Nouvelle école créée (web): ' . $school->name);
+        (new TelegramLogger)->log('Nouvelle école créée (web): '.$school->name);
+
         return redirect()->route('schools.index')->with('success', 'École créée avec succès');
     }
 
@@ -38,7 +38,8 @@ class SchoolWebController extends Controller
     public function update(SchoolRequest $request, School $school): RedirectResponse
     {
         $school->update($request->validated());
-        (new TelegramLogger())->log('École mise à jour (web): ' . $school->name);
+        (new TelegramLogger)->log('École mise à jour (web): '.$school->name);
+
         return redirect()->route('schools.index')->with('success', 'École mise à jour avec succès');
     }
 
@@ -46,7 +47,8 @@ class SchoolWebController extends Controller
     {
         $name = $school->name;
         $school->delete();
-        (new TelegramLogger())->log('École supprimée (web): ' . $name);
+        (new TelegramLogger)->log('École supprimée (web): '.$name);
+
         return redirect()->route('schools.index')->with('success', 'École supprimée avec succès');
     }
 }

@@ -13,9 +13,10 @@ class YearFactory extends Factory
     {
         $start = $this->faker->date();
         $end = $this->faker->dateTimeBetween($start)->format('Y-m-d');
+
         return [
             'school_id' => 1,
-            'name' => $this->faker->year() . '-' . $this->faker->year(),
+            'name' => $this->faker->year().'-'.$this->faker->year(),
             'is_active' => $this->faker->boolean(20),
             'start_date' => $start,
             'end_date' => $end,

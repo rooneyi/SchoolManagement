@@ -22,20 +22,20 @@ class SchoolRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=> ['required','string'],
-            'address'=>['required','string'],
-            'email'=>['required'],
-            'phone'=>['required']
+            'name' => ['required', 'string'],
+            'address' => ['required', 'string'],
+            'email' => ['required'],
+            'phone' => ['required'],
         ];
     }
 
     public function rulesUpdate(): array
     {
         return [
-            'name'=> ['sometimes','string'],
-            'address'=>['sometimes','string'],
-            'email'=>['sometimes','email'],
-            'phone'=>['sometimes','string']
+            'name' => ['sometimes', 'string'],
+            'address' => ['sometimes', 'string'],
+            'email' => ['sometimes', 'email'],
+            'phone' => ['sometimes', 'string'],
         ];
     }
 }

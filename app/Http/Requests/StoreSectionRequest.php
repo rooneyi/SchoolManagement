@@ -27,7 +27,8 @@ class StoreSectionRequest extends FormRequest
         ];
     }
 
-    public function messages(){
+    public function messages()
+    {
         return [
             'name.required' => 'Le nom de la section est requis.',
             'code.required' => 'Le code de la section est requis.',

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Http;
 class TelegramLogger
 {
     protected string $botToken;
+
     protected string $chatId;
 
     public function __construct()

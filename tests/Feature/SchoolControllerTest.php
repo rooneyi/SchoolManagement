@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Models\School;
 
 it('can list schools', function () {
@@ -8,7 +7,7 @@ it('can list schools', function () {
     $response = $this->getJson('/schools');
     $response->assertStatus(200)
         ->assertJsonStructure([
-            'success', 'message', 'data' => [['id', 'name', 'address', 'phone', 'email']]
+            'success', 'message', 'data' => [['id', 'name', 'address', 'phone', 'email']],
         ]);
 });
 
@@ -23,7 +22,7 @@ it('can create a school', function () {
 it('can update a school', function () {
     $school = School::factory()->create();
     $update = ['name' => 'Updated School'];
-    $response = $this->putJson('/schools/' . $school->id, $update);
+    $response = $this->putJson('/schools/'.$school->id, $update);
     $response->assertStatus(200)
         ->assertJson(['success' => true])
         ->assertJsonFragment(['name' => 'Updated School']);
