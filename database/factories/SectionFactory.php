@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Section>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<Section>
  */
 class SectionFactory extends Factory
 {
@@ -17,7 +17,9 @@ class SectionFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->word(),
+            'code' => $this->faker->bothify('SEC-###'),
+            'school_id' => 1,
         ];
     }
 }

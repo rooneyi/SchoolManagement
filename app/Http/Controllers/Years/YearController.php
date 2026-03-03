@@ -7,7 +7,6 @@ use App\Http\Requests\YearRequest;
 use App\Models\Year;
 use App\Services\TelegramLogger;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 final class YearController extends Controller
@@ -29,6 +28,7 @@ final class YearController extends Controller
         $data = $request->validated();
         $data['school_id'] = $user->id;
         $year = Year::create($data);
+        (new TelegramLogger)->log('Annees scoaire activer avec sucees');
 
         return response()->json([
             'success' => true,
@@ -77,7 +77,6 @@ final class YearController extends Controller
         Year::where('school_id', $year->school_id)
             ->where('id', '!=', $year->id)
             ->update(['is_active' => false]);
-
 
         $year->update(['is_active' => true]);
         (new TelegramLogger)->log("Annee scolaire $year activer avec succes");

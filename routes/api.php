@@ -32,23 +32,25 @@ Route::middleware('auth:sanctum')->prefix('v1')->name('api.v1.')->group(function
     Route::put('years/{id}/activate', [YearController::class, 'activate']);
 
     Route::apiResource('registrations', RegistrationController::class);
+    Route::put('registrations/{id}/status', [RegistrationController::class, 'changeStatus']);
+    Route::get('registrations/student/{student}', [RegistrationController::class, 'byStudent']);
     Route::post('logout', [AuthController::class, 'logout']);
 
-    // Get update telegram
-    Route::get('getupdates', function () {
-        try {
-            $updates = Telegram::getUpdates();
-            return response()->json([
-                'success' => true,
-                'message' => 'Mises à jour Telegram récupérées avec succès.',
-                'data' => $updates,
-            ], \Symfony\Component\HttpFoundation\Response::HTTP_OK);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Erreur lors de la récupération des mises à jour Telegram.',
-                'error' => $e->getMessage(),
-            ], \Symfony\Component\HttpFoundation\Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
-    });
+    //    // Get update telegram
+    //    Route::get('getupdates', function () {
+    //        try {
+    //            $updates = Telegram::getUpdates();
+    //            return response()->json([
+    //                'success' => true,
+    //                'message' => 'Mises à jour Telegram récupérées avec succès.',
+    //                'data' => $updates,
+    //            ], \Symfony\Component\HttpFoundation\Response::HTTP_OK);
+    //        } catch (\Exception $e) {
+    //            return response()->json([
+    //                'success' => false,
+    //                'message' => 'Erreur lors de la récupération des mises à jour Telegram.',
+    //                'error' => $e->getMessage(),
+    //            ], \Symfony\Component\HttpFoundation\Response::HTTP_INTERNAL_SERVER_ERROR);
+    //        }
+    //    });
 });

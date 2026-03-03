@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\School;
 use App\Models\Section;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('code');
             $table->integer('capacity')->default(30);
+            $table->foreignIdFor(School::class);
             $table->foreignIdFor(Section::class);
             $table->timestamps();
         });

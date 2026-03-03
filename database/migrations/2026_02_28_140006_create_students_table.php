@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('birth_date')->nullable();
             $table->string('address')->nullable();
             $table->string('photo')->nullable();
+            $table->string('bulletin_file')->nullable();
             $table->foreignIdFor(School::class);
             $table->foreignIdFor(Guardian::class);
             $table->timestamps();
