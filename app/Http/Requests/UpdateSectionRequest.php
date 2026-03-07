@@ -11,7 +11,7 @@ class UpdateSectionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateSectionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string'],
+            'code' => ['required', 'string', 'unique:sections,code,'.$this->route('section')->id],
+            'school_id' => ['required', 'exists:schools,id'],
         ];
     }
 }

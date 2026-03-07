@@ -24,6 +24,7 @@ class StoreSectionRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'code' => ['required', 'string', 'unique:sections,code'],
+            'school_id' => ['required', 'exists:schools,id'],
         ];
     }
 
