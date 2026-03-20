@@ -15,7 +15,11 @@ class StudentWebController extends Controller
 {
     public function index(): View
     {
-        $students = Student::with(['school', 'guardian'])->get();
+        $students = Student::with(['school', 'guardian', 'registrations' => function($query) {
+            $query->latest('registration_date');
+        }, 'registrations.classroom'])
+        ->latest()
+        ->paginate(20);
 
         return view('students.index', compact('students'));
     }

@@ -42,8 +42,8 @@
                             <div class="text-xs text-zinc-500">Parent: {{ $registration->guardian->first_name }} {{ $registration->guardian->last_name }}</div>
                         </td>
                         <td class="p-4">
-                            <div>{{ $registration->classroom->name }}</div>
-                            <div class="text-xs text-zinc-50">{{ $registration->section->name }}</div>
+                            <div>{{ $registration->classroom?->name ?? 'Classe inconnue' }}</div>
+                            <div class="text-xs text-zinc-500">{{ $registration->section?->name ?? 'Section inconnue' }}</div>
                         </td>
                         <td class="p-4">{{ $registration->year->name }}</td>
                         <td class="p-4">{{ $registration->registration_date }}</td>

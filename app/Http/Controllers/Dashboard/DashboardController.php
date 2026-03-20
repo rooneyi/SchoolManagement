@@ -31,7 +31,8 @@ class DashboardController extends Controller
             DB::raw('count(id) as total'),
             DB::raw("$monthExpression as month")
         )
-        ->groupBy('month')
+        ->whereYear('registration_date', date('Y'))
+        ->groupBy(DB::raw($monthExpression))
         ->orderBy('month')
         ->get();
 

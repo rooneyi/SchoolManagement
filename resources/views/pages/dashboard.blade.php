@@ -83,6 +83,11 @@
         gradient.addColorStop(0, 'rgba(30, 58, 138, 0.2)');
         gradient.addColorStop(1, 'rgba(30, 58, 138, 0)');
 
+        // Configuration globale pour le mode sombre
+        const isDarkMode = document.documentElement.classList.contains('dark');
+        const gridColor = isDarkMode ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
+        const textColor = isDarkMode ? '#94a3b8' : '#64748b';
+
         new Chart(regCtx, {
             type: 'line',
             data: {
@@ -105,21 +110,39 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
                 plugins: {
                     legend: {
                         display: false
+                    },
+                    tooltip: {
+                        backgroundColor: isDarkMode ? '#18181b' : '#ffffff',
+                        titleColor: isDarkMode ? '#fff' : '#0f172a',
+                        bodyColor: isDarkMode ? '#fff' : '#0f172a',
+                        borderColor: isDarkMode ? '#27272a' : '#e2e8f0',
+                        borderWidth: 1,
+                        padding: 10,
+                        displayColors: false,
+                        callbacks: {
+                            label: function(context) {
+                                return context.parsed.y + ' Inscription(s)';
+                            }
+                        }
                     }
                 },
                 scales: {
                     y: {
                         beginAtZero: true,
                         grid: {
-                            color: 'rgba(0, 0, 0, 0.03)',
+                            color: gridColor,
                             drawBorder: false
                         },
                         ticks: {
-                            font: { size: 11, weight: '500' },
-                            color: '#94a3b8'
+                            font: { size: 11, family: "'Inter', sans-serif" },
+                            color: textColor
                         }
                     },
                     x: {
@@ -127,8 +150,8 @@
                             display: false
                         },
                         ticks: {
-                            font: { size: 11, weight: '500' },
-                            color: '#94a3b8'
+                            font: { size: 11, family: "'Inter', sans-serif" },
+                            color: textColor
                         }
                     }
                 }
@@ -138,21 +161,23 @@
         // Sections Chart
         const sectionsData = {!! json_encode($studentsBySection) !!};
         const secCtx = document.getElementById('sectionsChart').getContext('2d');
+
+        // Palette de couleurs étendue (Bleus / Violets / Verts harmonieux)
+        const palette = [
+            '#1e3a8a', '#2563eb', '#60a5fa', '#93c5fd', '#bfdbfe', // Bleus
+            '#4f46e5', '#818cf8', '#c084fc', // Indigos
+            '#059669', '#34d399', '#6ee7b7'  // Emeraudes
+        ];
+
         new Chart(secCtx, {
             type: 'doughnut',
             data: {
                 labels: sectionsData.map(s => s.label),
                 datasets: [{
                     data: sectionsData.map(s => s.count),
-                    backgroundColor: [
-                        '#1e3a8a',
-                        '#3b82f6',
-                        '#60a5fa',
-                        '#93c5fd',
-                        '#bfdbfe'
-                    ],
-                    borderWidth: 8,
-                    borderColor: 'rgba(255, 255, 255, 1)',
+                    backgroundColor: palette,
+                    borderWidth: 2,
+                    borderColor: isDarkMode ? '#09090b' : '#ffffff',
                     hoverOffset: 15
                 }]
             },
@@ -164,13 +189,20 @@
                         position: 'bottom',
                         labels: {
                             usePointStyle: true,
-                            padding: 30,
-                            font: { size: 12, weight: '600' },
-                            color: '#64748b'
+                            padding: 20,
+                            font: { size: 11, family: "'Inter', sans-serif" },
+                            color: textColor
                         }
+                    },
+                    tooltip: {
+                        backgroundColor: isDarkMode ? '#18181b' : '#ffffff',
+                        titleColor: isDarkMode ? '#fff' : '#0f172a',
+                        bodyColor: isDarkMode ? '#fff' : '#0f172a',
+                        borderColor: isDarkMode ? '#27272a' : '#e2e8f0',
+                        borderWidth: 1,
                     }
                 },
-                cutout: '75%',
+                cutout: '70%',
                 radius: '90%'
             }
         });

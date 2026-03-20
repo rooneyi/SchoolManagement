@@ -25,7 +25,7 @@ class RegistrationWebController extends Controller
         return view('registrations.index', compact('registrations'));
     }
 
-    public function create(): View
+    public function create(Request $request): View
     {
         $students = Student::all();
         $guardians = Guardian::all();
@@ -34,7 +34,9 @@ class RegistrationWebController extends Controller
         $classrooms = Classroom::all();
         $sections = Section::all();
 
-        return view('registrations.create', compact('students', 'guardians', 'schools', 'years', 'classrooms', 'sections'));
+        $selectedStudentId = $request->get('student_id');
+
+        return view('registrations.create', compact('students', 'guardians', 'schools', 'years', 'classrooms', 'sections', 'selectedStudentId'));
     }
 
     public function store(RegistrationRequest $request): RedirectResponse

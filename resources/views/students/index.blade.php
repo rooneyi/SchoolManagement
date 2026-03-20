@@ -30,6 +30,7 @@
                 <tr class="text-zinc-500 uppercase text-[11px] font-bold tracking-widest border-b border-zinc-100 dark:border-zinc-800">
                     <th class="p-5">Élève</th>
                     <th class="p-5">Matricule</th>
+                    <th class="p-5">Classe</th>
                     <th class="p-5">Contacts</th>
                     <th class="p-5">École & Parent</th>
                     <th class="p-5 text-right">Actions</th>
@@ -55,6 +56,21 @@
                         </td>
                         <td class="p-5">
                             <span class="font-mono text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded dark:bg-blue-900/20 dark:text-blue-400">{{ $student->matricule }}</span>
+                        </td>
+                        <td class="p-5">
+                            @php
+                                $currentRegistration = $student->registrations->first();
+                            @endphp
+                            @if($currentRegistration && $currentRegistration->classroom)
+                                <span class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10 dark:bg-purple-900/20 dark:text-purple-400">
+                                    {{ $currentRegistration->classroom->name }}
+                                </span>
+                            @else
+                                <a href="{{ route('registrations.create', ['student_id' => $student->id]) }}" class="inline-flex items-center rounded-md bg-zinc-50 px-2 py-1 text-xs font-medium text-zinc-500 ring-1 ring-inset ring-zinc-500/10 hover:bg-blue-50 hover:text-blue-600 hover:ring-blue-600/20 transition-all dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-blue-900/20 dark:hover:text-blue-400">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="mr-1"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+                                    Inscrire
+                                </a>
+                            @endif
                         </td>
                         <td class="p-5">
                             <div class="flex flex-col gap-1 text-zinc-600 dark:text-zinc-400">
@@ -86,6 +102,9 @@
                 @endforeach
                 </tbody>
             </table>
+        </div>
+        <div class="p-4 border-t border-zinc-100 dark:border-zinc-800">
+            {{ $students->links() }}
         </div>
     </div>
 </div>

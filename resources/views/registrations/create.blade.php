@@ -17,7 +17,7 @@
                     <select id="student_id" name="student_id" required class="flex h-10 w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950 dark:border-zinc-800 dark:bg-zinc-950">
                         <option value="">Sélectionnez un élève</option>
                         @foreach($students as $student)
-                            <option value="{{ $student->id }}" {{ old('student_id') == $student->id ? 'selected' : '' }}>
+                            <option value="{{ $student->id }}" {{ (old('student_id') == $student->id || (isset($selectedStudentId) && $selectedStudentId == $student->id)) ? 'selected' : '' }}>
                                 {{ $student->name }} {{ $student->post_name }}
                             </option>
                         @endforeach
