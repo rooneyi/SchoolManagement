@@ -25,6 +25,18 @@
             </div>
 
             <div class="space-y-2">
+                <label for="education_level" class="text-sm font-medium">Niveau d'enseignement</label>
+                <select name="education_level" id="education_level" class="w-full rounded-md border border-zinc-200 bg-transparent px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950 dark:border-zinc-800" required>
+                    <option value="preschool" {{ old('education_level', $section->education_level) == 'preschool' ? 'selected' : '' }}>Maternelle</option>
+                    <option value="primary" {{ old('education_level', $section->education_level) == 'primary' ? 'selected' : '' }}>Primaire</option>
+                    <option value="secondary" {{ old('education_level', $section->education_level) == 'secondary' ? 'selected' : '' }}>Secondaire</option>
+                    <option value="vocational" {{ old('education_level', $section->education_level) == 'vocational' ? 'selected' : '' }}>Professionnel</option>
+                    <option value="university" {{ old('education_level', $section->education_level) == 'university' ? 'selected' : '' }}>Enseignement Supérieur / Université</option>
+                </select>
+                @error('education_level') <p class="text-xs text-red-500">{{ $message }}</p> @enderror
+            </div>
+
+            <div class="space-y-2">
                 <label for="school_id" class="text-sm font-medium">École</label>
                 <select name="school_id" id="school_id" class="w-full rounded-md border border-zinc-200 bg-transparent px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-950 dark:border-zinc-800" required>
                     <option value="">Sélectionnez une école</option>

@@ -1,28 +1,43 @@
 <?php
 
-use App\Http\Controllers\ClassroomWebController;
-use App\Http\Controllers\GuardianWebController;
-use App\Http\Controllers\SchoolWebController;
-use App\Http\Controllers\SectionWebController;
-use App\Http\Controllers\StudentWebController;
-use App\Http\Controllers\YearWebController;
+use App\Http\Controllers\AuthController\UserWebController;
+use App\Http\Controllers\Classrooms\ClassroomWebController;
+use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Fees\FeeWebController;
+use App\Http\Controllers\Guardians\GuardianWebController;
+use App\Http\Controllers\Payments\PaymentWebController;
+use App\Http\Controllers\Registrations\RegistrationWebController;
+use App\Http\Controllers\Schools\SchoolWebController;
+use App\Http\Controllers\Sections\SectionWebController;
+use App\Http\Controllers\Students\StudentWebController;
+use App\Http\Controllers\Years\YearWebController;
+use App\Http\Controllers\Employees\EmployeeWebController;
+use App\Http\Controllers\Subjects\SubjectWebController;
+use App\Http\Controllers\Teachings\TeachingWebController;
+use App\Http\Controllers\Schedules\CourseScheduleWebController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect()->route('dashboard');
 });
 
-use App\Http\Controllers\DashboardController;
-
 Route::get('dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-use App\Http\Controllers\UserWebController;
-
 Route::middleware(['auth', 'verified'])->prefix('user')->name('users.')->group(function () {
     Route::get('/create', [UserWebController::class, 'create'])->name('create');
     Route::post('/', [UserWebController::class, 'store'])->name('store');
+});
+
+Route::middleware(['auth', 'verified'])->prefix('registration')->name('registrations.')->group(function () {
+    Route::get('/', [RegistrationWebController::class, 'index'])->name('index');
+    Route::get('/create', [RegistrationWebController::class, 'create'])->name('create');
+    Route::post('/', [RegistrationWebController::class, 'store'])->name('store');
+    Route::get('/{registration}/edit', [RegistrationWebController::class, 'edit'])->name('edit');
+    Route::put('/{registration}', [RegistrationWebController::class, 'update'])->name('update');
+    Route::put('/{registration}/status', [RegistrationWebController::class, 'changeStatus'])->name('status');
+    Route::delete('/{registration}', [RegistrationWebController::class, 'destroy'])->name('destroy');
 });
 
 Route::middleware(['auth', 'verified'])->prefix('school')->name('schools.')->group(function () {
@@ -78,6 +93,53 @@ Route::middleware(['auth', 'verified'])->prefix('year')->name('years.')->group(f
     Route::put('/{year}', [YearWebController::class, 'update'])->name('update');
     Route::put('/{year}/activate', [YearWebController::class, 'activate'])->name('activate');
     Route::delete('/{year}', [YearWebController::class, 'destroy'])->name('destroy');
+});
+
+Route::middleware(['auth', 'verified'])->prefix('fee')->name('fees.')->group(function () {
+    Route::get('/', [FeeWebController::class, 'index'])->name('index');
+    Route::get('/create', [FeeWebController::class, 'create'])->name('create');
+    Route::post('/', [FeeWebController::class, 'store'])->name('store');
+    Route::get('/{fee}/edit', [FeeWebController::class, 'edit'])->name('edit');
+    Route::put('/{fee}', [FeeWebController::class, 'update'])->name('update');
+    Route::get('/{fee}', [FeeWebController::class, 'show'])->name('show');
+    Route::delete('/{fee}', [FeeWebController::class, 'destroy'])->name('destroy');
+});
+
+Route::middleware(['auth', 'verified'])->name('payments.')->group(function () {
+    Route::post('/fees/{fee}/payments', [PaymentWebController::class, 'store'])->name('store');
+    Route::delete('/payments/{payment}', [PaymentWebController::class, 'destroy'])->name('destroy');
+});
+
+Route::middleware(['auth', 'verified'])->prefix('employee')->name('employees.')->group(function () {
+    Route::get('/', [EmployeeWebController::class, 'index'])->name('index');
+    Route::get('/create', [EmployeeWebController::class, 'create'])->name('create');
+    Route::post('/', [EmployeeWebController::class, 'store'])->name('store');
+    Route::get('/{employee}/edit', [EmployeeWebController::class, 'edit'])->name('edit');
+    Route::put('/{employee}', [EmployeeWebController::class, 'update'])->name('update');
+    Route::delete('/{employee}', [EmployeeWebController::class, 'destroy'])->name('destroy');
+});
+
+Route::middleware(['auth', 'verified'])->prefix('subject')->name('subjects.')->group(function () {
+    Route::get('/', [SubjectWebController::class, 'index'])->name('index');
+    Route::get('/create', [SubjectWebController::class, 'create'])->name('create');
+    Route::post('/', [SubjectWebController::class, 'store'])->name('store');
+    Route::get('/{subject}/edit', [SubjectWebController::class, 'edit'])->name('edit');
+    Route::put('/{subject}', [SubjectWebController::class, 'update'])->name('update');
+    Route::delete('/{subject}', [SubjectWebController::class, 'destroy'])->name('destroy');
+});
+
+Route::middleware(['auth', 'verified'])->prefix('teaching')->name('teachings.')->group(function () {
+    Route::get('/', [TeachingWebController::class, 'index'])->name('index');
+    Route::get('/create', [TeachingWebController::class, 'create'])->name('create');
+    Route::post('/', [TeachingWebController::class, 'store'])->name('store');
+    Route::delete('/{teaching}', [TeachingWebController::class, 'destroy'])->name('destroy');
+});
+
+Route::middleware(['auth', 'verified'])->prefix('schedule')->name('schedules.')->group(function () {
+    Route::get('/', [CourseScheduleWebController::class, 'index'])->name('index');
+    Route::get('/create', [CourseScheduleWebController::class, 'create'])->name('create');
+    Route::post('/', [CourseScheduleWebController::class, 'store'])->name('store');
+    Route::delete('/{schedule}', [CourseScheduleWebController::class, 'destroy'])->name('destroy');
 });
 
 require __DIR__.'/settings.php';

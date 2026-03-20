@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Guardian extends Model
 {
-    use HasFactory;
+    use HasFactory, \App\Models\Concerns\BelongsToSchool;
 
     protected $fillable = [
         'first_name',
@@ -17,7 +17,6 @@ class Guardian extends Model
         'email',
         'phone',
         'address',
-        'school_id',
     ];
 
     public function school(): BelongsTo

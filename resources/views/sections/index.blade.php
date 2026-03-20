@@ -1,50 +1,70 @@
 @extends('dashboard')
 
 @section('content')
-<div class="p-8">
-    <div class="mb-8 flex items-end justify-between">
+<div class="">
+    <div class="mb-10 flex items-end justify-between">
         <div>
-            <h1 class="text-3xl font-bold tracking-tight">Gestion des sections</h1>
-            <p class="text-zinc-500">Liste, création, modification et suppression des sections scolaires.</p>
+            <h1 class="text-3xl font-extrabold tracking-tight text-blue-950 dark:text-blue-400">Sections pédagogiques</h1>
+            <p class="text-zinc-500 font-medium">Organisation des filières et branches d'enseignement.</p>
         </div>
-        <a href="{{ route('sections.create') }}" class="inline-flex h-10 items-center justify-center rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-zinc-50 transition-colors hover:bg-zinc-900/90 dark:bg-zinc-50 dark:text-zinc-900">
-            + Ajouter une section
+        <a href="{{ route('sections.create') }}" class="inline-flex h-11 items-center justify-center rounded-xl bg-blue-900 px-6 py-2 text-sm font-bold text-white shadow-lg shadow-blue-900/20 transition-all hover:bg-blue-800 active:scale-[0.98]">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="mr-2"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+            Ajouter une section
         </a>
     </div>
 
     @if(session('success'))
-        <div class="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
-            {{ session('success') }}
+        <div class="mb-8 flex items-center gap-3 rounded-2xl border border-green-100 bg-green-50 p-4 text-green-700 shadow-sm animate-in fade-in slide-in-from-top-4 duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span class="text-sm font-bold">{{ session('success') }}</span>
         </div>
     @endif
 
-    <div class="mt-8 rounded-xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
-        <div class="p-6">
-            <h3 class="font-semibold leading-none tracking-tight">Liste des sections</h3>
+    <div class="overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
+        <div class="p-6 border-b border-zinc-100 dark:border-zinc-800 flex items-center justify-between">
+            <h3 class="font-bold text-blue-950 dark:text-white uppercase tracking-wider text-xs">Filières Disponibles</h3>
         </div>
-        <div class="border-t border-zinc-200 dark:border-zinc-800">
-            <table class="w-full text-sm">
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left">
                 <thead>
-                <tr class="border-b border-zinc-200 bg-zinc-50/50 dark:border-zinc-800 dark:bg-zinc-900/50">
-                    <th class="p-4 text-left font-medium">Nom</th>
-                    <th class="p-4 text-left font-medium">Code</th>
-                    <th class="p-4 text-left font-medium">École</th>
-                    <th class="p-4 text-right font-medium">Actions</th>
+                <tr class="bg-zinc-50/50 dark:bg-zinc-900/50 text-zinc-500 uppercase text-[11px] font-bold tracking-widest">
+                    <th class="p-5 border-b border-zinc-100 dark:border-zinc-800">Désignation</th>
+                    <th class="p-5 border-b border-zinc-100 dark:border-zinc-800">Code Identifiant</th>
+                    <th class="p-5 border-b border-zinc-100 dark:border-zinc-800">École Affiliée</th>
+                    <th class="p-5 border-b border-zinc-100 dark:border-zinc-800 text-right">Actions</th>
                 </tr>
                 </thead>
-                <tbody class="divide-y divide-zinc-200 dark:divide-zinc-800">
+                <tbody class="divide-y divide-zinc-100 dark:divide-zinc-800">
                 @foreach($sections as $section)
-                    <tr>
-                        <td class="p-4">{{ $section->name }}</td>
-                        <td class="p-4">{{ $section->code }}</td>
-                        <td class="p-4">{{ $section->school->name }}</td>
-                        <td class="p-4 text-right">
-                            <a href="{{ route('sections.edit', $section) }}" class="text-blue-600 hover:underline">Modifier</a>
-                            <form action="{{ route('sections.destroy', $section) }}" method="POST" class="inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:underline ml-2" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette section ?')">Supprimer</button>
-                            </form>
+                    <tr class="group hover:bg-blue-50/30 transition-colors dark:hover:bg-blue-900/5">
+                        <td class="p-5">
+                            <div class="flex items-center gap-3">
+                                <div class="h-9 w-9 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center font-bold text-xs dark:bg-indigo-900/30 dark:text-indigo-400">
+                                    {{ substr($section->name, 0, 2) }}
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="font-bold text-blue-950 dark:text-white">{{ $section->name }}</span>
+                                    <span class="text-[10px] text-zinc-500 uppercase tracking-wider">{{ $section->education_level_label }}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="p-5">
+                            <code class="rounded bg-zinc-100 px-2 py-1 text-[10px] font-bold text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400 tracking-widest">{{ $section->code }}</code>
+                        </td>
+                        <td class="p-5 text-zinc-600 dark:text-zinc-400 font-medium">{{ $section->school->name }}</td>
+                        <td class="p-5 text-right">
+                            <div class="flex items-center justify-end gap-2">
+                                <a href="{{ route('sections.edit', $section) }}" class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-blue-600 hover:bg-blue-100 transition-colors dark:hover:bg-blue-900/30">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                </a>
+                                <form action="{{ route('sections.destroy', $section) }}" method="POST" class="inline" onsubmit="return confirm('Supprimer cette section ?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="inline-flex h-8 w-8 items-center justify-center rounded-lg text-red-500 hover:bg-red-50 transition-colors dark:hover:bg-red-900/20">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

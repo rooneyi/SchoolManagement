@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Classroom extends Model
 {
-    use HasFactory;
+    use HasFactory, \App\Models\Concerns\BelongsToSchool;
 
     protected $fillable = [
         'name',

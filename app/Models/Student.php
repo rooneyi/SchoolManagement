@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Student extends Model
 {
-    use HasFactory;
+    use HasFactory, \App\Models\Concerns\BelongsToSchool;
 
     //
     protected $fillable = [
@@ -22,7 +22,6 @@ class Student extends Model
         'address',
         'photo',
         'bulletin_file',
-        'school_id',
         'guardian_id',
     ];
 

@@ -25,6 +25,7 @@ class UpdateSectionRequest extends FormRequest
             'name' => ['required', 'string'],
             'code' => ['required', 'string', 'unique:sections,code,'.$this->route('section')->id],
             'school_id' => ['required', 'exists:schools,id'],
+            'education_level' => ['required', 'string', 'in:preschool,primary,secondary,university,vocational'],
         ];
     }
 }

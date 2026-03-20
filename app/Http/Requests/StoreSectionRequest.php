@@ -25,6 +25,7 @@ class StoreSectionRequest extends FormRequest
             'name' => ['required', 'string'],
             'code' => ['required', 'string', 'unique:sections,code'],
             'school_id' => ['required', 'exists:schools,id'],
+            'education_level' => ['required', 'string', 'in:preschool,primary,secondary,university,vocational'],
         ];
     }
 
@@ -35,6 +36,8 @@ class StoreSectionRequest extends FormRequest
             'code.required' => 'Le code de la section est requis.',
             'code.unique' => 'Ce code de section existe déjà.',
             'school_id.required' => 'L\'identifiant de l\'école est requis.',
+            'education_level.required' => 'Le niveau d\'éducation est requis.',
+            'education_level.in' => 'Le niveau d\'éducation doit être l\'un des suivants : preschool, primary, secondary, university, vocational.',
         ];
     }
 }

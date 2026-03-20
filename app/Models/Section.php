@@ -9,12 +9,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Section extends Model
 {
-    use HasFactory;
+    use HasFactory, \App\Models\Concerns\BelongsToSchool;
 
     protected $fillable = [
         'name',
         'school_id',
         'code',
+        'education_level',
     ];
 
     public function school(): BelongsTo
@@ -30,5 +31,17 @@ class Section extends Model
     public function registrations(): HasMany
     {
         return $this->hasMany(Registration::class);
+    }
+
+    public function getEducationLevelLabelAttribute(): string
+    {
+        return match($this->education_level) {
+            'preschool' => 'Maternelle',
+            'primary' => 'Primaire',
+            'secondary' => 'Secondaire',
+            'university' => 'Supérieur',
+            'vocational' => 'Professionnel',
+            default => 'Autre',
+        };
     }
 }

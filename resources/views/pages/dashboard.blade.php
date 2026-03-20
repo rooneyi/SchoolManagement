@@ -1,44 +1,72 @@
 @extends('dashboard')
 
 @section('content')
-<div class="p-8">
-    <div class="mb-8 flex items-end justify-between">
-        <div>
-            <h1 class="text-3xl font-bold tracking-tight">Tableau de bord</h1>
-            <p class="text-zinc-500">Statistiques globales de l'école</p>
-        </div>
+<div class="">
+    <div class="mb-10">
+        <h1 class="text-3xl font-extrabold tracking-tight text-blue-950 dark:text-blue-400">Tableau de bord</h1>
+        <p class="text-zinc-500 font-medium">Vue d'ensemble et statistiques de votre établissement.</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <!-- Dashboard Widgets -->
-        <div class="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-            <h3 class="text-sm font-medium text-zinc-500">Total Écoles</h3>
-            <p class="text-2xl font-bold mt-2">{{ $schoolCount }}</p>
+        <div class="group rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-zinc-800 dark:bg-zinc-950">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"/></svg>
+                </div>
+                <span class="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded-full">+{{ $schoolCount }}</span>
+            </div>
+            <h3 class="text-sm font-bold text-zinc-500 uppercase tracking-wider">Écoles</h3>
+            <p class="text-3xl font-extrabold mt-1 text-blue-950 dark:text-white">{{ $schoolCount }}</p>
         </div>
-        <div class="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-            <h3 class="text-sm font-medium text-zinc-500">Total Élèves</h3>
-            <p class="text-2xl font-bold mt-2">{{ $studentCount }}</p>
+
+        <div class="group rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-zinc-800 dark:bg-zinc-950">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-900/20 dark:text-indigo-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+            </div>
+            <h3 class="text-sm font-bold text-zinc-500 uppercase tracking-wider">Élèves</h3>
+            <p class="text-3xl font-extrabold mt-1 text-blue-950 dark:text-white">{{ $studentCount }}</p>
         </div>
-        <div class="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-            <h3 class="text-sm font-medium text-zinc-500">Total Parents</h3>
-            <p class="text-2xl font-bold mt-2">{{ $guardianCount }}</p>
+
+        <div class="group rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-zinc-800 dark:bg-zinc-950">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-900/20 dark:text-amber-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+            </div>
+            <h3 class="text-sm font-bold text-zinc-500 uppercase tracking-wider">Parents</h3>
+            <p class="text-3xl font-extrabold mt-1 text-blue-950 dark:text-white">{{ $guardianCount }}</p>
         </div>
-        <div class="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-            <h3 class="text-sm font-medium text-zinc-500">Total Classes</h3>
-            <p class="text-2xl font-bold mt-2">{{ $classroomCount }}</p>
+
+        <div class="group rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition-all hover:shadow-md dark:border-zinc-800 dark:bg-zinc-950">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/><path d="M3 9h18"/></svg>
+                </div>
+            </div>
+            <h3 class="text-sm font-bold text-zinc-500 uppercase tracking-wider">Classes</h3>
+            <p class="text-3xl font-extrabold mt-1 text-blue-950 dark:text-white">{{ $classroomCount }}</p>
         </div>
     </div>
 
     <!-- Charts Section -->
-    <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div class="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-            <h3 class="text-lg font-semibold mb-4">Inscriptions Mensuelles</h3>
+    <div class="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="rounded-2xl border border-zinc-200 bg-white p-8 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
+            <div class="flex items-center justify-between mb-8">
+                <h3 class="text-lg font-bold text-blue-950 dark:text-white">Inscriptions Mensuelles</h3>
+                <span class="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">Année en cours</span>
+            </div>
             <div class="h-[300px] w-full">
                 <canvas id="registrationsChart"></canvas>
             </div>
         </div>
-        <div class="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-            <h3 class="text-lg font-semibold mb-4">Répartition par Section</h3>
+        <div class="rounded-2xl border border-zinc-200 bg-white p-8 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
+            <div class="flex items-center justify-between mb-8">
+                <h3 class="text-lg font-bold text-blue-950 dark:text-white">Répartition par Section</h3>
+                <button class="text-xs font-bold text-zinc-400 hover:text-blue-600 transition-colors">Détails</button>
+            </div>
             <div class="h-[300px] w-full flex justify-center">
                 <canvas id="sectionsChart"></canvas>
             </div>
@@ -51,6 +79,10 @@
     document.addEventListener('DOMContentLoaded', function() {
         // Inscriptions Chart
         const regCtx = document.getElementById('registrationsChart').getContext('2d');
+        const gradient = regCtx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(30, 58, 138, 0.2)');
+        gradient.addColorStop(1, 'rgba(30, 58, 138, 0)');
+
         new Chart(regCtx, {
             type: 'line',
             data: {
@@ -58,11 +90,16 @@
                 datasets: [{
                     label: 'Inscriptions',
                     data: {!! json_encode($registrationData) !!},
-                    borderColor: '#18181b',
-                    backgroundColor: 'rgba(24, 24, 27, 0.1)',
-                    borderWidth: 2,
+                    borderColor: '#1e3a8a',
+                    backgroundColor: gradient,
+                    borderWidth: 3,
                     fill: true,
-                    tension: 0.4
+                    tension: 0.4,
+                    pointBackgroundColor: '#fff',
+                    pointBorderColor: '#1e3a8a',
+                    pointBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6
                 }]
             },
             options: {
@@ -77,12 +114,21 @@
                     y: {
                         beginAtZero: true,
                         grid: {
-                            color: 'rgba(0, 0, 0, 0.05)'
+                            color: 'rgba(0, 0, 0, 0.03)',
+                            drawBorder: false
+                        },
+                        ticks: {
+                            font: { size: 11, weight: '500' },
+                            color: '#94a3b8'
                         }
                     },
                     x: {
                         grid: {
                             display: false
+                        },
+                        ticks: {
+                            font: { size: 11, weight: '500' },
+                            color: '#94a3b8'
                         }
                     }
                 }
@@ -99,13 +145,15 @@
                 datasets: [{
                     data: sectionsData.map(s => s.count),
                     backgroundColor: [
-                        '#18181b',
-                        '#3f3f46',
-                        '#71717a',
-                        '#a1a1aa',
-                        '#d4d4d8'
+                        '#1e3a8a',
+                        '#3b82f6',
+                        '#60a5fa',
+                        '#93c5fd',
+                        '#bfdbfe'
                     ],
-                    borderWidth: 0
+                    borderWidth: 8,
+                    borderColor: 'rgba(255, 255, 255, 1)',
+                    hoverOffset: 15
                 }]
             },
             options: {
@@ -116,11 +164,14 @@
                         position: 'bottom',
                         labels: {
                             usePointStyle: true,
-                            padding: 20
+                            padding: 30,
+                            font: { size: 12, weight: '600' },
+                            color: '#64748b'
                         }
                     }
                 },
-                cutout: '70%'
+                cutout: '75%',
+                radius: '90%'
             }
         });
     });

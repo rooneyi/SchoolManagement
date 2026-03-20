@@ -9,11 +9,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Year extends Model
 {
-    use HasFactory;
+    use HasFactory, \App\Models\Concerns\BelongsToSchool;
 
     //
     protected $fillable = [
-        'school_id',
         'name',
         'is_active',
         'start_date',

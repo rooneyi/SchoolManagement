@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -9,6 +10,28 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class School extends Model
 {
     use HasFactory;
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope('per-user-school', function (Builder $builder): void {
+            if (app()->runningInConsole()) {
+                return;
+            }
+
+            $user = auth()->user();
+
+            if ($user && method_exists($user, 'isSystemAdmin') && $user->isSystemAdmin()) {
+                return;
+            }
+
+            if (! $user || ! $user->school_id) {
+                $builder->whereRaw('1 = 0');
+                return;
+            }
+
+            $builder->where($builder->getModel()->getTable() . '.id', $user->school_id);
+        });
+    }
 
     protected $fillable = [
         'name',
