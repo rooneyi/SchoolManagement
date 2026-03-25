@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController\UserWebController;
 use App\Http\Controllers\Classrooms\ClassroomWebController;
 use App\Http\Controllers\Dashboard\DashboardController;
@@ -15,8 +16,7 @@ use App\Http\Controllers\Employees\EmployeeWebController;
 use App\Http\Controllers\Subjects\SubjectWebController;
 use App\Http\Controllers\Teachings\TeachingWebController;
 use App\Http\Controllers\Schedules\CourseScheduleWebController;
-use App\Livewire\Organigram\Kanban;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrganigramWebController;
 
 Route::get('/', function () {
     return redirect()->route('dashboard');
@@ -143,5 +143,7 @@ Route::middleware(['auth', 'verified'])->prefix('schedule')->name('schedules.')-
     Route::delete('/{schedule}', [CourseScheduleWebController::class, 'destroy'])->name('destroy');
 });
 
-Route::middleware(['auth', 'verified'])->get('/organigram/{school}', Kanban::class)->name('organigram.index');
+
+
+Route::middleware(['auth', 'verified'])->get('/organigram/{school}', [OrganigramWebController::class, 'show'])->name('organigram.index');
 require __DIR__.'/settings.php';

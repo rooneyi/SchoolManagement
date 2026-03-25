@@ -22,6 +22,6 @@ class Kanban extends Component
 
     public function render()
     {
-        return view('components.organigram.⚡kanban');
+        return view('livewire.organigram.kanban');
     }
 }

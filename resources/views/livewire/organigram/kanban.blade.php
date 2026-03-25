@@ -1,4 +1,6 @@
+@php /** @var \App\Models\School $school */ @endphp
 <div class="min-h-screen bg-blue-950/90 py-10 px-4 md:px-10">
+<div class="bg-red-600 text-white p-2 text-center font-bold">DEBUG: Vue Livewire Kanban appelée</div>
     <div class="max-w-7xl mx-auto">
         <h1 class="text-3xl font-extrabold text-white tracking-tight mb-8 drop-shadow">Organigramme de l'école : <span class="text-blue-300">{{ $school->name }}</span></h1>
 
