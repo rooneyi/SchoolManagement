@@ -28,6 +28,12 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="{{ request()->routeIs('schools.*') ? 'text-white' : 'text-blue-400 group-hover:text-blue-300' }}"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"/></svg>
                     Écoles
                 </a>
+                @if(auth()->user()->school_id)
+                <a href="{{ route('organigram.index', ['school' => auth()->user()->school_id]) }}" class="group flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-200 {{ request()->routeIs('organigram.*') ? 'bg-blue-600 text-white shadow-md shadow-blue-900/40 ring-1 ring-blue-500/50' : 'text-blue-100/70 hover:bg-blue-900/50 hover:text-white' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="{{ request()->routeIs('organigram.*') ? 'text-white' : 'text-blue-400 group-hover:text-blue-300' }}"><rect x="3" y="3" width="18" height="6" rx="2"/><rect x="3" y="15" width="18" height="6" rx="2"/><rect x="9" y="9" width="6" height="6" rx="2"/></svg>
+                    Organigramme
+                </a>
+                @endif
                 @endif
                 <a href="{{ route('years.index') }}" class="group flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-200 {{ request()->routeIs('years.*') ? 'bg-blue-600 text-white shadow-md shadow-blue-900/40 ring-1 ring-blue-500/50' : 'text-blue-100/70 hover:bg-blue-900/50 hover:text-white' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="{{ request()->routeIs('years.*') ? 'text-white' : 'text-blue-400 group-hover:text-blue-300' }}"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>

@@ -15,6 +15,7 @@ use App\Http\Controllers\Employees\EmployeeWebController;
 use App\Http\Controllers\Subjects\SubjectWebController;
 use App\Http\Controllers\Teachings\TeachingWebController;
 use App\Http\Controllers\Schedules\CourseScheduleWebController;
+use App\Livewire\Organigram\Kanban;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -142,4 +143,5 @@ Route::middleware(['auth', 'verified'])->prefix('schedule')->name('schedules.')-
     Route::delete('/{schedule}', [CourseScheduleWebController::class, 'destroy'])->name('destroy');
 });
 
+Route::middleware(['auth', 'verified'])->get('/organigram/{school}', Kanban::class)->name('organigram.index');
 require __DIR__.'/settings.php';
