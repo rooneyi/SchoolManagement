@@ -1,0 +1,57 @@
+<?php
+
+/**
+ * @author Rooney Kalumba <22ki129@esisalama.org>
+ */
+
+namespace App\Http\Controllers\Classrooms;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreClassroomRequest;
+use App\Http\Resources\ClassroomResource;
+use App\Models\Classroom;
+use App\Services\TelegramLogger;
+use Exception;
+use Symfony\Component\HttpFoundation\Response;
+
+final class ClassroomController extends Controller
+{
+    public function index()
+    {
+        $classroom = Classroom::all();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Liste des classes récupérée avec succès.',
+            'data' => ClassroomResource::collection($classroom),
+        ], Response::HTTP_OK);
+    }
+
+    public function store(StoreClassroomRequest $request)
+    {
+        $user = auth()->user()->school;
+        $data = $request->validated();
+        $data['school_id'] = $user->id;
+
+        try {
+            $school = Classroom::create($data);
+            (new TelegramLogger)->log('Nouvelle classroom créée: '.$school->name);
+
+            (new TelegramLogger)->log('Classe créée avec succès: '.$school->name);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Classe créée avec succès.',
+                'data' => $school,
+            ], Response::HTTP_CREATED);
+        } catch (Exception $e) {
+            (new TelegramLogger)->log('Erreur lors de la création de la classe: '.$e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Une erreur est survenue lors de la création de la classe.',
+                'error' => $e->getMessage(),
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+}
