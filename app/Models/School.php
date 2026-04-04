@@ -38,6 +38,8 @@ class School extends Model
         'email',
         'phone',
         'address',
+        'months_count',
+        'monthly_amount',
     ];
 
     public function users()
